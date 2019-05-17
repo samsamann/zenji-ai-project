@@ -1,26 +1,26 @@
-from field import Field, FieldRow
+from field import Field
+from renderer import BoardRender
 
 class Board:
-    SIZE = 3
-
+    __renderer = BoardRender()
     __fields = []
 
-    def __init__(self):
-        for row in range(Board.SIZE):
+    def __init__(self, board_config):
+        row_count = len(board_config)
+        for row_id, row in enumerate(board_config):
+            column_count = len(row)
+            # we need a square board
+            assert column_count == row_count, 'Check board configuration'
             row_array = []
-            for column in range(Board.SIZE):
-                field = Field()
-                if row == 0 and column == 0:
-                    field.is_start_field()
-                elif row == Board.SIZE-1 and column == Board.SIZE-1:
-                    field.is_end_field()
+            for column_id, field_config in enumerate(row):
+                assert len(field_config) == 4, 'Field configuration must contain 4 side types'
+                field = Field(
+                    field_config,
+                    row_id == 0 and column_id == 0,
+                    row_id == row_count-1 and column_id == column_count
+                )
                 row_array.append(field)
             self.__fields.append(row_array)
 
     def draw(self):
-        for row in self.__fields:
-            for field_row in range(5):
-                for field in row:
-                    field.draw(FieldRow(field_row))
-                    print('  ', end='')
-                print()
+        self.__renderer.draw(self.__fields)

@@ -1,63 +1,42 @@
-from enum import Enum
+from field_utils import FieldRow, FieldSideType
+from renderer import FieldRenderer
 
-class FieldRow(Enum):
-    HEADER = 0
-    NORTH = 1
-    WEST_EAST = 2
-    SOUTH = 3
-    FOOTER = 4
-
+#
+# [0, 1, 2, 0]
+#
 class Field:
-    __is_start = False
-    __is_end = False
+    __renderer = FieldRenderer()
 
-    __NORTH_ENTRANCE = '▼'
-    __NORTH_EXIT = '▲'
-
-    __SOUTH_ENTRANCE = '▲'
-    __SOUTH_EXIT = '▼'
-
-    __EAST_ENTRANCE = '◀'
-    __EAST_EXIT = '▶'
-
-    __WEST_ENTRANCE = '▶'
-    __WEST_EXIT = '◀'
-
-    __START_POINT = '✺'
-    __END_POINT = '='
+    def __init__(self, field_config, is_start_field = False, is_end_field = False):
+        self.__is_start = is_start_field
+        self.__is_end = is_end_field
+        for idx, side_type in enumerate(field_config):
+            if idx == 0:
+                self.__north = FieldSideType(side_type)
+            elif idx == 1:
+                self.__east = FieldSideType(side_type)
+            elif idx == 2:
+                self.__south = FieldSideType(side_type)
+            elif idx == 3:
+                self.__west = FieldSideType(side_type)
 
     def is_start_field(self):
-        self.__is_start = True
-        self.__is_end = False
+        return self.__is_start
 
     def is_end_field(self):
-        self.__is_start = False
-        self.__is_end = True
+        return self.__is_end
 
-    def draw(self, row = FieldRow(0)):
-        method_name = '_Field__draw_' + str(row.name).lower()
-        method = getattr(self, method_name, lambda: print('wrong'))
-        method()
-        
-    def __draw_header(self):
-        print('_' * 9, end='')
+    def get_north_type(self):
+        return self.__north
 
-    def __draw_north(self):
-        print('|' + ' ' * 3, end='')
-        print(self.__NORTH_ENTRANCE, end='')
-        print(' ' * 3 + '|', end='')
+    def get_east_type(self):
+        return self.__east
 
-    def __draw_west_east(self):
-        print('| ', end='')
-        print(self.__EAST_ENTRANCE, end='')
-        print(' + ', end='')
-        print(self.__WEST_EXIT, end='')
-        print(' |', end='')
+    def get_south_type(self):
+        return self.__south
 
-    def __draw_south(self):
-        print('|' + ' ' * 3, end='')
-        print(self.__NORTH_ENTRANCE, end='')
-        print(' ' * 3 + '|', end='')
+    def get_west_type(self):
+        return self.__west
 
-    def __draw_footer(self):
-        print('‾' * 9, end='')
+    def draw(self, row):
+        self.__renderer.draw(self, FieldRow(row))
