@@ -11,3 +11,8 @@ class FieldSideTypes(Enum):
     STOP = 0
     ENTRANCE = 1
     EXIT = 2
+
+class FieldColors:
+    RED = '\033[91m'
+    BLUE = '\033[94m'
+    CLEAR = '\033[0m'

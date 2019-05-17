@@ -1,4 +1,4 @@
-from field_utils import FieldSideTypes
+from field_utils import FieldSideTypes, FieldColors
 
 class FieldRenderer:
 
@@ -40,9 +40,9 @@ class FieldRenderer:
 
         center_symbol = self.__CENTER_SYMBOL
         if field.is_start_field():
-            center_symbol = self.__START_POINT
+            center_symbol = FieldColors.RED + self.__START_POINT + FieldColors.CLEAR
         elif field.is_end_field():
-            center_symbol = self.__END_POINT
+            center_symbol = FieldColors.RED + self.__END_POINT + FieldColors.CLEAR
         print(' ' + center_symbol + ' ', end='')
 
         field_symbol = self.__DEFAULT_SYMBOL
