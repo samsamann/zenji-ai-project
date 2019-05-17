@@ -1,4 +1,4 @@
-from field_utils import FieldRow, FieldSideType
+from field_utils import FieldRows, FieldSideTypes
 from renderer import FieldRenderer
 
 #
@@ -12,13 +12,13 @@ class Field:
         self.__is_end = is_end_field
         for idx, side_type in enumerate(field_config):
             if idx == 0:
-                self.__north = FieldSideType(side_type)
+                self.__north = FieldSideTypes(side_type)
             elif idx == 1:
-                self.__east = FieldSideType(side_type)
+                self.__east = FieldSideTypes(side_type)
             elif idx == 2:
-                self.__south = FieldSideType(side_type)
+                self.__south = FieldSideTypes(side_type)
             elif idx == 3:
-                self.__west = FieldSideType(side_type)
+                self.__west = FieldSideTypes(side_type)
 
     def is_start_field(self):
         return self.__is_start
@@ -39,4 +39,4 @@ class Field:
         return self.__west
 
     def draw(self, row):
-        self.__renderer.draw(self, FieldRow(row))
+        self.__renderer.draw(self, FieldRows(row))

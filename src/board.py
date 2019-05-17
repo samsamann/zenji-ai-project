@@ -17,7 +17,7 @@ class Board:
                 field = Field(
                     field_config,
                     row_id == 0 and column_id == 0,
-                    row_id == row_count-1 and column_id == column_count
+                    row_id == row_count - 1 and column_id == column_count - 1
                 )
                 row_array.append(field)
             self.__fields.append(row_array)

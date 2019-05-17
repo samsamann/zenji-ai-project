@@ -1,4 +1,4 @@
-from field_utils import FieldSideType
+from field_utils import FieldSideTypes
 
 class FieldRenderer:
 
@@ -24,17 +24,17 @@ class FieldRenderer:
 
     def __draw_north(self, field):
         field_symbol = self.__DEFAULT_SYMBOL
-        if field.get_north_type() == FieldSideType.ENTRANCE:
+        if field.get_north_type() == FieldSideTypes.ENTRANCE:
             field_symbol = self.__TRIANGLE_DOWN
-        elif field.get_north_type() == FieldSideType.EXIT:
+        elif field.get_north_type() == FieldSideTypes.EXIT:
             field_symbol = self.__TRIANGLE_UP
         print('|' + ' ' * 3 + field_symbol + ' ' * 3 + '|', end='')
 
     def __draw_west_east(self, field):
         field_symbol = self.__DEFAULT_SYMBOL
-        if field.get_west_type() == FieldSideType.ENTRANCE:
+        if field.get_west_type() == FieldSideTypes.ENTRANCE:
             field_symbol = self.__TRIANGLE_RIGHT
-        elif field.get_north_type() == FieldSideType.EXIT:
+        elif field.get_north_type() == FieldSideTypes.EXIT:
             field_symbol = self.__TRIANGLE_LEFT
         print('| ' + field_symbol, end='')
 
@@ -46,17 +46,17 @@ class FieldRenderer:
         print(' ' + center_symbol + ' ', end='')
 
         field_symbol = self.__DEFAULT_SYMBOL
-        if field.get_east_type() == FieldSideType.ENTRANCE:
+        if field.get_east_type() == FieldSideTypes.ENTRANCE:
             field_symbol = self.__TRIANGLE_LEFT
-        elif field.get_east_type() == FieldSideType.EXIT:
+        elif field.get_east_type() == FieldSideTypes.EXIT:
             field_symbol = self.__TRIANGLE_RIGHT
         print(field_symbol + ' |', end='')
 
     def __draw_south(self, field):
         field_symbol = self.__DEFAULT_SYMBOL
-        if field.get_south_type() == FieldSideType.ENTRANCE:
+        if field.get_south_type() == FieldSideTypes.ENTRANCE:
             field_symbol = self.__TRIANGLE_UP
-        elif field.get_south_type() == FieldSideType.EXIT:
+        elif field.get_south_type() == FieldSideTypes.EXIT:
             field_symbol = self.__TRIANGLE_DOWN
         print('|' + ' ' * 3 + field_symbol + ' ' * 3 + '|', end='')
 
