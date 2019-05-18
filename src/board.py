@@ -3,9 +3,9 @@ from renderer import BoardRender
 
 class Board:
     __renderer = BoardRender()
-    __fields = []
 
     def __init__(self, board_config):
+        self.__fields = []
         row_count = len(board_config)
         for row_id, row in enumerate(board_config):
             column_count = len(row)
@@ -22,5 +22,11 @@ class Board:
                 row_array.append(field)
             self.__fields.append(row_array)
 
-    def draw(self):
-        self.__renderer.draw(self.__fields)
+    def get_fields(self):
+        return self.__fields
+
+    def draw(self, board = None):
+        if board is None:
+            self.__renderer.draw(self.get_fields())
+        else:
+            self.__renderer.draw(self.get_fields(), board.get_fields())

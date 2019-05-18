@@ -34,7 +34,7 @@ class FieldRenderer:
         field_symbol = self.__DEFAULT_SYMBOL
         if field.get_west_type() == FieldSideTypes.ENTRANCE:
             field_symbol = self.__TRIANGLE_RIGHT
-        elif field.get_north_type() == FieldSideTypes.EXIT:
+        elif field.get_west_type() == FieldSideTypes.EXIT:
             field_symbol = self.__TRIANGLE_LEFT
         print('| ' + field_symbol, end='')
 
@@ -67,10 +67,30 @@ class FieldRenderer:
 
 class BoardRender:
 
-    def draw(self, fields):
+    def draw(self, fields, fields2 = []):
+        if len(fields2) == 0:
+            self.draw_one_board(fields)
+        else:
+            self.draw_two_board(fields, fields2)
+
+    def draw_one_board(self, fields):
         for row in fields:
             for field_row in range(5):
                 for field in row:
+                    field.draw(field_row)
+                    print('  ', end='')
+                print()
+
+    def draw_two_board(self, fields, fields2):
+        print('INIT:' + ' ' * (9 * 5 + 3) + 'END:')
+        for idx, row_board1 in enumerate(fields):
+            row_board2 = fields2[idx]
+            for field_row in range(5):
+                for field in row_board1:
+                    field.draw(field_row)
+                    print('  ', end='')
+                print(' ' * 9, end='')
+                for field in row_board2:
                     field.draw(field_row)
                     print('  ', end='')
                 print()
