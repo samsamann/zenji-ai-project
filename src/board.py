@@ -30,3 +30,6 @@ class Board:
             self.__renderer.draw(self.get_fields())
         else:
             self.__renderer.draw(self.get_fields(), board.get_fields())
+    
+    def rotate_field(self, x, y):
+        self.__fields[y][x].rotate_clockwise()
