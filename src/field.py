@@ -7,19 +7,22 @@ from renderer import FieldRenderer
 class Field:
     __renderer = FieldRenderer()
 
-    def __init__(self, field_config, is_start_field = False, is_end_field = False):
-        self.__is_start = is_start_field
-        self.__is_end = is_end_field
+    def __init__(self, field_config, pos, board_size = (0, 0)):
+        self.__pos = pos
+        self.__board_size = board_size
         self.__side_types = []
         for idx, side_type in enumerate(field_config):
             if idx >= 0 and idx < 4:
                 self.__side_types.insert(idx, FieldSideTypes(side_type))
 
+    def get_pos(self):
+        return self.__pos
+
     def is_start_field(self):
-        return self.__is_start
+        return self.__pos[0] == 0 and self.__pos[1] == 0
 
     def is_end_field(self):
-        return self.__is_end
+        return self.__pos[0] == self.__board_size[0]-1 and self.__pos[1] == self.__board_size[1]-1
 
     def get_north_type(self):
         return self.__side_types[0]
