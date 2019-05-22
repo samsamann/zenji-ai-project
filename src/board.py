@@ -57,5 +57,5 @@ class Board:
             return dest.get_west_type()
         if origin_pos[0] == dest_pos[0] and origin_pos[1] < dest_pos[1]:
             return dest.get_north_type()
-        if origin_pos[1] == dest_pos[1]  and origin_pos[0] < dest_pos[0]:
+        if origin_pos[1] == dest_pos[1]  and origin_pos[0] > dest_pos[0]:
             return dest.get_east_type()
