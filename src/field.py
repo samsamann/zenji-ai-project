@@ -36,10 +36,15 @@ class Field:
     def get_west_type(self):
         return self.__side_types[3]
 
-    def draw(self, row):
-        self.__renderer.draw(self, FieldRows(row))
+    def draw(self, row, rotate_tracker = None):
+        self.__renderer.draw(self, FieldRows(row), rotate_tracker)
 
     def rotate_clockwise(self):
         old_west_type = self.__side_types[3]
         del self.__side_types[3]
         self.__side_types.insert(0, old_west_type)
+
+    def __eq__(self, other):
+        self_pos = self.get_pos()
+        other_pos = other.get_pos()
+        return self_pos[0] == other_pos[0] and self_pos[1] == other_pos[1]

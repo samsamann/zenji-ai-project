@@ -36,14 +36,23 @@ class Board:
             neighbors.append(self.__fields[pos[1]][pos[0] - 1])
         return neighbors
 
-    def get_fields(self):
-        return self.__fields
+    def get_connected_sides(self, origin, dest):
+        origin_pos = origin.get_pos()
+        dest_pos = dest.get_pos()
+        if origin_pos[0] == dest_pos[0] and origin_pos[1] > dest_pos[1]:
+            return (0, 2)
+        if origin_pos[1] == dest_pos[1] and origin_pos[0] < dest_pos[0]:
+            return (1, 3)
+        if origin_pos[0] == dest_pos[0] and origin_pos[1] < dest_pos[1]:
+            return (2, 0)
+        if origin_pos[1] == dest_pos[1]  and origin_pos[0] > dest_pos[0]:
+            return (3, 1)
 
-    def draw(self, board = None):
-        if board is None:
-            self.__renderer.draw(self.get_fields())
+    def draw(self, path = None):
+        if path is None:
+            self.__renderer.draw(self.__fields)
         else:
-            self.__renderer.draw(self.get_fields(), board.get_fields())
+            self.__renderer.draw(self.__fields, path)
 
     def get_neighbor_side_type(self, origin, dest):
         origin_pos = origin.get_pos()
